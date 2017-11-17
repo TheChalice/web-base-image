@@ -1,18 +1,16 @@
 FROM alpine:latest
 
 # Copy code
-COPY . /data/mainline/
+COPY . /data/blur-admin/
 
-WORKDIR /data/mainline
+WORKDIR /data/blur-admin
 
 # Install nginx & node
 # Install Bower
 # Install node & bower depends
 # Set bower root allow
-
-#sed -i s#dl-cdn.alpinelinux.org#mirrors.aliyun.com/alpine#g /etc/apk/repositories && \
-#ed -i 's/http\:\/\/dl-cdn.alpinelinux.org/https\:\/\/alpine.global.ssl.fastly.net/g' /etc/apk/repositories && \
-RUN apk add --update nodejs git nodejs-npm && \
+RUN  sed -i s#http://dl-cdn.alpinelinux.org#https://mirrors.aliyun.com#g /etc/apk/repositories && \
+    apk add --update nodejs git nodejs-npm && \
     npm install -g bower gulp && \
     echo '{ "allow_root": true }' > /root/.bowerrc && \
     git config --global url."https://".insteadOf git:// && \
